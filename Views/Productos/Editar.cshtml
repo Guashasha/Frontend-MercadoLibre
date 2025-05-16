@@ -1,0 +1,70 @@
+@model frontendnet.Models.Producto
+@{
+    ViewData["Title"] = "Productos";
+    ViewData["SubTitle"] = "Editar";
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+    <script src="~/js/producto_portada.js"></script>
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a class="text-decoration-none" title="Regresar al listado"
+                asp-action="Index">Listado</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["SubTitle"]</li>
+    </ol>
+</nav>
+
+<h2 class="text-center mb-3">@ViewData["Title"] <small class="text-muted fs-5">@ViewData["SubTitle"]</small></h2>
+
+<form asp-action="Editar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card mt-3">
+        <div class="row g-0">
+            <div class="col-md-4 text-center bg-white pt-3">
+                <img src='@((Model.ArchivoId == null) ? "https://placehold.co/300x450/FFF/999?text=Articulo" : $"{ViewBag.Url}api/archivos/{Model.ArchivoId}")' alt="Título" class="portada img-fluid" data-url="@ViewBag.Url" style="max-height: 300px;">
+                
+            </div>
+            <div class="col-md-8">
+                <div class="card-body small">
+                    <div class="form-floating mb-3">
+                        <input asp-for="ProductoId" placeholder="Id" readonly
+                            class="form-control form-control-plaintext" />
+                        <label asp-for="ProductoId" class="form-label"></label>
+                        <span asp-validation-for="ProductoId" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Titulo" placeholder="Nombre" class="form-control" />
+                        <label asp-for="Titulo" class="form-label"></label>
+                        <span asp-validation-for="Titulo" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Precio" placeholder="Nombre" class="form-control" />
+                        <label asp-for="Precio" class="form-label"></label>
+                        <span asp-validation-for="Precio" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" asp-for="ArchivoId" class="form-control"
+                            asp-items="ViewBag.Archivo">
+                            <option value="">Producto sin portada</option>
+                        </select>
+                        <label asp-for="ArchivoId" class="control-label"></label>
+                        <span asp-validation-for="ArchivoId" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea asp-for="Descripcion" placeholder="Poster" class="form-control form-control-sm"
+                            style="height: 100px"></textarea>
+                        <label asp-for="Descripcion" class="form-label"></label>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <button id="btnEnviar" type="submit" class="btn btn-sm btn-primary">Guardar</button>
+        <a class="btn btn-sm btn-outline-secondary" asp-action="Index" title="Cancelar">Cancelar</a>
+    </div>
+</form>

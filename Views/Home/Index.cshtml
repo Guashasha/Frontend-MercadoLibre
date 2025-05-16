@@ -1,0 +1,68 @@
+@using System.Security.Claims
+@{
+	ViewData["Title"] = "P�gina principal"; 
+}
+
+<div style="left: 50%;margin-left:-50vw;position: relative; width: 100vw">
+	<div id="carouselExample" class="carousel slide" style="margin-top: -1rem;">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"
+				aria-current="true" aria-label="Slide 1"></button>
+			<button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			<button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			<button type="button" data-bs-target="#carouselExample" data-bs-slide-to="3" aria-label="Slide 4"></button>
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="~/images/carrusel1.webp" class="d-block w-100" alt="Imagen 1"/>
+			</div>
+			<div class="carousel-item active">
+				<img src="~/images/carrusel2.webp" class="d-block w-100" alt="Imagen 1" />
+			</div>
+			<div class="carousel-item active">
+				<img src="~/images/carrusel3.webp" class="d-block w-100" alt="Imagen 1" />
+			</div>
+			<div class="carousel-item active">
+				<img src="~/images/carrusel4.webp" class="d-block w-100" alt="Imagen 1" />
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+			<span class="carouse-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+			<span class="carouse-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+</div>
+
+<div class="container-fluid mt-4">
+	<div class="card">
+		<div class="card-header">
+			Mercado Libre
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">Compre productos con Envío Gratis en Mercado Libre México</h5>
+			<p class="card-text">Encuentre miles de marcas y productos a precios increíbles</p>
+			<p class="card-text">Mercado Libre es la mayor plataforma de comercio electrónico de la región, donde
+				millones de compradores y vendedores se encuentran para realizar transacciones con una aplia gama de 
+				productos y servicios, a precio fijo.</p>
+			@if (User.Identity?.IsAuthenticated == true)
+			{
+				if (User.FindFirstValue(ClaimTypes.Role) == "Usuario")
+				{
+					<a asp-controller="Comprar" class="btn btn-primary">Comenzar a comprar</a>
+				}
+				else if (User.FindFirstValue(ClaimTypes.Role) == "Administrador")
+				{
+					<a asp-controller="Productos" class="btn btn-primary">Administrar catálogo</a>
+				}
+			}
+			else
+			{
+				<a asp-controller="Auth" class"btn btn-primary">Iniciar sesión</a>
+			}
+		</div>
+	</div>
+</div>

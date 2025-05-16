@@ -1,0 +1,38 @@
+@model frontendnet.Models.AuthUser
+@{
+	ViewData["Title"] = "Perfil de usuario"; 
+	ViewData["SubTitle"] = "Perfil"; 
+}
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb small">
+		<li class="breadcrumb-item active" aria-current="page">@ViewData["SubTitle"]</li>
+	</ol>
+</nav>
+
+<h2 class="text-center mb-3">@ViewData["Title"]</h2>
+
+<div class="card mt-3">
+	<div class="card-body">
+		<div class="mb-3 ps-3">
+			<label asp-for="Email" class="form-label form-text"></label>
+			<div class="form-text text-body">@Model.Email</div>
+		</div>
+		<div class="mb-3 ps-3">
+			<label asp-for="Nombre" class="form-label form-text"></label>
+			<div class="form-text text-body">@Model.Nombre</div>
+		</div>
+		<div class="mb-3 ps-3">
+			<label asp-for="Rol" class="form-label form-text"></label>
+			<div class="form-text text-body">@Model.Rol</div>
+		</div>
+		<div class="mb-3 ps-3" small>
+			<label asp-for="Jwt" class="form-label form-text"></label>
+			<div class="form-text text-body">@Model.Jwt</div>
+		</div>
+		<div class="mb-3 ps-3">
+			<label asp-for="Email" class="form-label form-text">Tiempo restante</label>
+			<div class="form-text text-body">@ViewBag.timeRemaining</div>
+		</div>
+	</div>
+</div>

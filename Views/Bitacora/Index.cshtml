@@ -1,0 +1,82 @@
+@model List<frontendnet.Models.Bitacora>
+@{
+	ViewData["Title"] = "Bit�cora";
+	ViewData["SubTitle"] = "Listado";
+}
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb small">
+		<li class="breadcrumb-item active" aria-current="page">@ViewData["SubTitle"]</li>
+	</ol>
+</nav>
+
+<h2 class="text-center mb-3">@ViewData["Title"] <small class="text-muted fs-5">@ViewData["SubTitle"]</small></h2>
+
+<div class="row small mb-3">
+	<div class="col text-end">
+		Mostrando @Model.Count() elementos
+	</div>
+</div>
+
+@if (Model.Count() > 0)
+{
+	<div class="table-responsive">
+		<table class="table table-striped table-borderes small">
+			<thead class="text-center">
+				<tr>
+					<th>
+						@Html.DisplayNameFor(m => m.First().BitacoraId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(m => m.First().Accion)
+					</th>
+					<th>
+						@Html.DisplayNameFor(m => m.First().ElementoId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(m => m.First().IP)
+					</th>
+					<th>
+						@Html.DisplayNameFor(m => m.First().Usuario)
+					</th>
+					<th>
+						@Html.DisplayNameFor(m => m.First().Fecha)
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<th>
+							@Html.DisplayFor(m => item.BitacoraId)
+						</th>
+						<th>
+							@Html.DisplayFor(m => item.Accion)
+						</th>
+						<th>
+							@Html.DisplayFor(m => item.ElementoId)
+						</th>
+						<th>
+							@Html.DisplayFor(m => item.IP)
+						</th>
+						<th>
+							@Html.DisplayFor(m => item.Usuario)
+						</th>
+						<th>
+							@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Convert.ToDateTime(item.Fecha),"America/Mexico_City")
+						</th>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+else
+{
+	<div class="mt-5">
+		<div class="alert alert-warning" role="alert">
+			No se han encontrado elementos. Int�ntelo de nuevo m�s tarde.
+		</div>
+	</div>
+}

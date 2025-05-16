@@ -1,0 +1,54 @@
+@model List<frontendnet.Models.Categoria>
+
+<div class="row small mb-3">
+    <div class="col">
+        <a class="text-decoration-none" asp-action="CategoriasAgregar" asp-route-id="@ViewData["ProductoId"]" 
+            title="Agregar">Agregar</a>
+    </div>
+    <div class="col text-end">
+        Mostrando @Model.Count() elementos
+    </div>
+</div>
+
+@if (Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered small">
+            <thead class="text-center">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().CategoriaId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Nombre)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoriaId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td width="1">
+                            <a class="text-decoration-none small text-uppercase" asp-action="CategoriasRemover" asp-route-id="@ViewData["ProductoId"]" asp-route-categoriaid="@item.CategoriaId">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <div class="alert alert-warning small" role="alert">
+            No se han encontrado elementos.
+        </div>
+    </div>
+}

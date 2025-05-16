@@ -1,0 +1,35 @@
+@model frontendnet.Models.Producto
+
+<div class="card mt-3">
+    <div class="row g-0">
+        <div class="col-md-4 text-center bg-white pt-3">
+            <img src='@(Model.ArchivoId == null ? "https://placehold.co/300x450/FFF/999?text=Articulo" : $"{ViewBag.Url}/api/archivos/{Model.ArchivoId}")'
+                 alt="@Model.Titulo" class="portada img-fluid" data-url="@ViewBag.Url"
+                 style="max-height: 300px;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="mb-3 ps-3">
+                    <label asp-for="ProductoId" class="form-label form-text"></label>
+                    <div class="form-text text-body">@Model.ProductoId</div>
+                </div>
+                <div class="mb-3 ps-3">
+                    <label asp-for="Titulo" class="form-label form-text"></label>
+                    <div class="form-text text-body">@Model.Titulo</div>
+                </div>
+                <div class="mb-3 ps-3">
+                    <label asp-for="Precio" class="form-label form-text"></label>
+                    <div class="form-text text-body">@Model.Precio</div>
+                </div>
+                <div class="mb-3 ps-3">
+                    <label asp-for="ArchivoId" class="form-label form-text"></label>
+                    <div class="form-text text-body">@(Model.ArchivoId == null) ? "N/A" : $"Id: {Model.ArchivoId}")</div>
+                </div>
+                <div class="mb-3 ps-3">
+                    <label asp-for="Descripcion" class="form-label form-text"></label>
+                    <div class="form-text text-body">@Model.Descripcion</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

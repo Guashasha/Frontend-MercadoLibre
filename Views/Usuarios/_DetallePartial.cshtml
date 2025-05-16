@@ -1,0 +1,18 @@
+@model frontendnet.Models.Usuario
+
+<div class="card mt-3">
+    <div class="card-body">
+        <div class="mb-3 ps-3">
+            <label asp-for="Email" class="form-label form-text"></label>
+            <div class="form-text text-body">@Model.Email</div>
+        </div>
+        <div class="mb-3 ps-3">
+            <label asp-for="Nombre" class="form-label form-text"></label>
+            <div class="form-text text-body">@Model.Nombre</div>
+        </div>
+        <div class="mb-3 ps-3">
+            <label asp-for="Rol" class="form-label form-text"></label>
+            <div class="form-text text-body">@Model.Rol</div>
+        </div>
+    </div>
+</div>

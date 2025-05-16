@@ -1,0 +1,85 @@
+@model List<frontendnet.Models.Producto>
+@{
+	ViewData["Title"] = "Comprar";
+	ViewData["SubTitle"] = "Listado";
+}
+
+<h2 class="text-center mb-3">Carrito de compras</h2>
+
+<div class="row small mb-3">
+	<div class="col text-end">
+		Mostrando @Model.Count() elementos
+	</div>
+</div>
+
+@if (Model.Count() > 0)
+{
+	<div class="table-responsive">
+        <table class="table table-striped table-bordered small">
+            <thead class="text-center">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().ArchivoId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Titulo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Precio)
+                    </th>
+                    <th>SubTotal</th>
+                    <th></th>
+                    <th>Cantidad</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td width="200px">
+                            <img src='@((item.ArchivoId == null) ? "https://placehold.co/300x200/FFF/999?text=Articulo" : $"{ViewBag.Url}/api/archivos/{item.ArchivoId}")'
+                            alt="@item.Titulo" class="img-fluid" data-url="@ViewBag.Url"
+                            style="max-height: 200px; width: fit-content" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Titulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @(item.Precio * item.CarritoProducto.Cantidad)
+                        </td>
+                        <td width="1">
+                            <a class="btn btn-warning btn-sm" asp-action="DecreaseQuantity" asp-route-id="@item.CarritoProducto.ProductoId">Quitar</a>
+                        </td>
+                        <td width="1">
+                            @Html.DisplayFor(modelItem => item.CarritoProducto.Cantidad)
+                        </td>
+                        <td width="1">
+                            <a class="btn btn-primary btn-sm" asp-action="IncreaseQuantity" asp-route-id="@item.CarritoProducto.ProductoId">Agregar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" asp-action="DeleteProduct" asp-route-id="@item.CarritoProducto.ProductoId">Eliminar de carrito</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary btn-sm" asp-action="BuyProducts">Comprar</a>
+    </div>
+}
+else
+{
+	<div class="mt-5">
+		<div class="alert alert-warning" role="alert">
+			No se han encontrado elementos. Inténtelo de nuevo más tarde.
+		</div>
+	</div>
+}
+

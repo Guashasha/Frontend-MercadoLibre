@@ -1,0 +1,23 @@
+html[data-bs-theme="dark"] body {
+  --mercadolibre-bg: var(--bs-body-bg);
+  --logo: url(../images/logo-dark.png) no-repeat;
+}
+
+html[data-bs-theme="light"] body {
+  --mercadolibre-bg: #ffe600;
+  --logo: url(../images/logo.png) no-repeat;
+}
+
+.bg-mercadolibre {
+  background-color: var(--mercadolibre-bg) !important;
+}
+
+.logo {
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: var(--logo);
+  background-size: 100px 25px;
+  height: 25px;
+  width: 100px;
+}
