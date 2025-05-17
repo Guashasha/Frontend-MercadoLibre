@@ -28,5 +28,5 @@ public class Producto
     [Display(Name = "Eliminable")]
     public bool Protegida { get; set; } = false;
 
-    public ICollection<Categoria>? Categorias { get; set; }
+    public ICollection<Categoria>? Categoria { get; set; }
 }

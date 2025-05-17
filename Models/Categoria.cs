@@ -4,7 +4,7 @@ namespace frontendnet.Models;
 public class Categoria
 {
     [Display(Name = "Id")]
-    public int? Categoriald { get; set; }
+    public int? CategoriaId { get; set; }
 
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public required string Nombre { get; set; }

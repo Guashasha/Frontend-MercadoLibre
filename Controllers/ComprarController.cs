@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace frontendnet;
 
 [Authorize(Roles = "Usuario")]
-public class ComprarController(ProductosClientService productos, IConfiguration configuration)
+public class ComprarController(ProductosClientService productos, IConfiguration configuration): Controller
 {
     public async Task<IActionResult> Index(string? s)
     {
