@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const htmlElement = document.documentElement;
     const switchElement = document.getElementById('darkModeSwitch');
-    const modoLuz = document.querySelector('.modo-luz')
+    const modoLuz = document.querySelector('.modo-luz');
 
     // Establece como el modo light como el predeterminado
     const currentTheme = localStorage.getItem('bsTheme') || 'light';

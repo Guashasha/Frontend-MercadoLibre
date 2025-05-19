@@ -1,0 +1,35 @@
+@model frontendnet.Models.Login
+@{
+	ViewData["Title"] = "Inicio de sesión";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Index">
+	<div class="card mx-auto" style="max-width: 500px">
+		<div class="card-body">
+			<h1 class="h3 text-center">Bienvenido a Mercado Libre</h1>
+			<h2 class="h6 text-center text-muted">Facultad de Estadística e Informática</h2>
+			<h5 class="card-card-title text-center mt-4">@ViewData["Title"]</h5>
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-floating mb-3">
+				<input asp-for="Email" class="form-control" placeholder="Email"/>
+				<label asp-for="Email" class="form-label"></label>
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<input asp-for="Password" class="form-control" placeholder="Password" />
+				<label asp-for="Password" class="form-label"></label>
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+			<p class="card-text small">Ingrese sus credenciales para poder disfrutar de todo el contenido de la plataforma</p>
+			<p class="card-text small"><a asp-controller="Home" asp-action="Index" class="link-primary text-decoration-none">Crear cuenta</a></p>
+		</div>
+		<div class="card-footer text-center">
+			<button type="submit" class="btn btn-primary">Iniciar sesión</button>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial"/>
+}

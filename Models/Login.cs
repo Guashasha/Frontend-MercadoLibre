@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-namespace frontendnet.Models;
-
+namespace frontendnet.Models
+{
 public class Login
 {
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -12,4 +12,5 @@ public class Login
     [DataType(DataType.Password)]
     [Display(Name = "Contraseña")]
     public required string Password { get; set; }
+}
 }
