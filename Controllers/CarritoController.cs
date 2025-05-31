@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace frontendnet
 {
     [Authorize(Roles = "Usuario")]
-    public class CarritoController() : Controller
+    public class CarritoController(CarritoClientService carritoService, 
+    IConfiguration configuration, PedidosClientService pedidosService) : Controller
     {
 
         private AuthUser? usuario = null; 
@@ -22,7 +23,7 @@ namespace frontendnet
               Jwt = User.FindFirstValue("jwt")!
             };
 
-          Carrito car? = await carritoService.GetAsync(); 
+          Carrito? car = await carritoService.GetAsync(); 
           ViewBag.Url = configuration["UrlWebAPI"];
 
           return View(car.Productos);

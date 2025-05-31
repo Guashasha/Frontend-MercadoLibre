@@ -29,4 +29,6 @@ public class Producto
     public bool Protegida { get; set; } = false;
 
     public ICollection<Categoria>? Categoria { get; set; }
+
+    public CarritoProducto? CarritoProducto { get; set; }
 }

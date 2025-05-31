@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace frontendnet
-{ 
+{
     public class AuthController(AuthClientService auth, UsuariosClientService usuarios) : Controller
     {
         [AllowAnonymous]
@@ -31,7 +31,7 @@ namespace frontendnet
                         new(ClaimTypes.Name, token.Email),
                         new(ClaimTypes.GivenName, token.Nombre),
                         new("jwt", token.Jwt),
-                        new(ClaimTypes.Role, token.Rol)
+                        new(ClaimTypes.Role, token.Rol),
                     };
                     auth.IniciaSesionAsync(claims);
 
@@ -43,7 +43,10 @@ namespace frontendnet
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
-                    ModelState.AddModelError("Email", "Credenciales no válidas. Inténtelo nuevamente.");
+                    ModelState.AddModelError(
+                        "Email",
+                        "Credenciales no válidas. Inténtelo nuevamente."
+                    );
                 }
             }
             return View(model);
@@ -57,19 +60,24 @@ namespace frontendnet
         }
 
         [HttpPost]
-        public async Task<IActionResult> CrearUsuario(UsuarioPwd newUser)                 
+        public async Task<IActionResult> CrearUsuario(UsuarioPwd newUser)
         {
-          if(ModelState.IsValid)
-          {
-            await usuarios.PostAsync(newUser);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await usuarios.PostAsync(newUser);
 
-            return RedirectToAction(nameof(Index));
-          }
-          catch (HttpRequestException ex) 
-          {
-             if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-              return RedirectToAction("Salir", "Auth");
-          }
+                    return RedirectToAction("Index", "Auth");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    return RedirectToAction("Salir", "Auth");
+            }
+
+            return null;
         }
     }
 }
