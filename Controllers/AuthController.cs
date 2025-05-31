@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace frontendnet
 { 
-    public class AuthController(AuthClientService auth) : Controller
+    public class AuthController(AuthClientService auth, UsuariosClientService usuarios) : Controller
     {
         [AllowAnonymous]
         public IActionResult Index()
@@ -54,6 +54,22 @@ namespace frontendnet
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Auth");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CrearUsuario(UsuarioPwd newUser)                 
+        {
+          if(ModelState.IsValid)
+          {
+            await usuarios.PostAsync(newUser);
+
+            return RedirectToAction(nameof(Index));
+          }
+          catch (HttpRequestException ex) 
+          {
+             if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+              return RedirectToAction("Salir", "Auth");
+          }
         }
     }
 }

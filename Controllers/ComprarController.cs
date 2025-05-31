@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace frontendnet;
 
 [Authorize(Roles = "Usuario")]
-public class ComprarController(ProductosClientService productos, IConfiguration configuration): Controller
+public class ComprarController(ProductosClientService productos, IConfiguration configuration, CarritoClientService carritoClient): Controller
 {
     public async Task<IActionResult> Index(string? s)
     {
@@ -24,5 +24,21 @@ public class ComprarController(ProductosClientService productos, IConfiguration 
         ViewBag.Url = configuration["UrlWebAPI"];
         ViewBag.search = s;
         return View(lista);
+    }
+
+    public async Task<IActionResult> AddToCart(int id)
+    {
+        try
+        {
+            await carritoClient.PostItemAsync(id);
+            return Redirect("/carrito"); 
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                return RedirectToAction("Salir", "Auth"); 
+        }
+
+        return RedirectToAction("Index");
     }
 }
