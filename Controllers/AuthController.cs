@@ -59,25 +59,37 @@ namespace frontendnet
             return RedirectToAction("Index", "Auth");
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CrearUsuario()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CrearUsuario(UsuarioPwd newUser)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    await usuarios.PostAsync(newUser);
+                    if (string.IsNullOrEmpty(newUser.Rol))
+                    {
+                        newUser.Rol = "Usuario"; 
+                    }
 
+                    await usuarios.PostAsync(newUser);
                     return RedirectToAction("Index", "Auth");
                 }
+                catch (HttpRequestException ex)
+                {
+                    if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        return RedirectToAction("Salir", "Auth");
+                    ModelState.AddModelError(string.Empty, "Error al crear el usuario. Intente de nuevo.");
+                }
             }
-            catch (HttpRequestException ex)
-            {
-                if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    return RedirectToAction("Salir", "Auth");
-            }
-
-            return null;
+            return View(newUser);
         }
     }
 }
